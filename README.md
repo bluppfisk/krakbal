@@ -15,5 +15,9 @@ pip install -r requirements.txt
 3. Run `python3 krakbal.py` or `./krakbal.py`
 
 ## Flags
-`-c` allows you to specify a currency other than Euro (in Kraken format: ZEUR, ZUSD, ...)
-`-k` allows you to specify a key file other than **kraken.key**
+* `-c` allows you to specify a currency other than Euro (in Kraken format: ZEUR, ZUSD, ...)
+* `-k` allows you to specify a key file other than **kraken.key**
+
+Example:
+
+`python3 krakbal.py -c ZUSD -k kraken.key`
