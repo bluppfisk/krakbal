@@ -15,9 +15,12 @@ pip install -r requirements.txt
 3. Run `python3 krakbal.py` or `./krakbal.py`
 
 ## Flags
-* `-c` allows you to specify a currency other than Euro (in Kraken format: ZEUR, ZUSD, ...)
-* `-k` allows you to specify a key file other than **kraken.key**
+* `-c` allows you to specify a currency other than the default **EUR**, e.g. USD, GBP, CAD (see Limitations)
+* `-k` allows you to specify a key file other than the default **kraken.key**
 
 Example:
 
-`python3 krakbal.py -c ZUSD -k kraken.key`
+`python3 krakbal.py -c usd -k kraken.key`
+
+## Limitations
+* Kraken currently only has complete conversion data for its crypto assets into USD and EUR. For all but the biggest assets, CAD and GBP conversion is not available.

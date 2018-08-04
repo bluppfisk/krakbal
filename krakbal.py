@@ -13,7 +13,7 @@ API_SECRET = "hDzEcXRb7JLbcXF5xOHD0HbWrSxFkLx0hr57RYtPoJh \
 
 class KrakBal:
     def __init__(self, key_file, currency):
-        self.currency = currency
+        self.currency = "Z" + currency.upper()
         self.data = {}
         self.pairlist = []
         self.total = 0.0
@@ -69,7 +69,10 @@ class KrakBal:
             if asset == self.currency:
                 item['rate'] = 1
             else:
-                item['rate'] = float(prices.get(item['pair']).get('a')[0])
+                try:
+                    item['rate'] = float(prices.get(item['pair']).get('a')[0])
+                except Exception as e:
+                    self.handle_error(e)
 
     def compute_total(self):
         self.total = 0
@@ -85,7 +88,7 @@ class KrakBal:
             item = self.data[asset]
             print("{0:.2f} {1} \t= {2:.2f} {3} \t(@ {4})\033[K".format(
                 item['balance'],
-                asset[-3:],
+                asset,
                 item['total'],
                 self.currency[-3:],
                 item['rate']
@@ -105,6 +108,8 @@ class KrakBal:
             print("ERR: Connection timed out, try again")
         elif isinstance(error, KeyFileError):
             print("ERR: Incorrectly formatted Key File")
+        elif isinstance(error, AttributeError):
+            print("ERR: Kraken cannot convert all of your assets to this fiat currency.")
         else:
             print("ERR:", error)
 
@@ -117,9 +122,9 @@ parser.add_argument(
     metavar='currency',
     nargs=1,
     type=str,
-    default=['ZEUR'],
+    default=['EUR'],
     dest='currency',
-    help="Optional currency symbol (default: ZEUR)"
+    help="Optional currency symbol (default: EUR)"
 )
 
 parser.add_argument(
