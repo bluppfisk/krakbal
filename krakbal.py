@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import krakenex
 import argparse
 from time import sleep
@@ -116,7 +117,7 @@ parser.add_argument(
     metavar='currency',
     nargs=1,
     type=str,
-    default='ZEUR',
+    default=['ZEUR'],
     dest='currency',
     help="Optional currency symbol (default: ZEUR)"
 )
@@ -126,7 +127,7 @@ parser.add_argument(
     metavar='key file',
     nargs=1,
     type=str,
-    default='kraken.key',
+    default=['kraken.key'],
     dest='key_file',
     help="Optional Key file (default: kraken.key)"
 )
