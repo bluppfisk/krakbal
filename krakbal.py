@@ -5,11 +5,6 @@ from time import sleep
 from requests.exceptions import ReadTimeout
 from binascii import Error as KeyFileError
 
-# CURRENCY = "ZEUR"
-API_KEY = "3SYZr0HCr5P1IG22vmaskcj3wFpJk4XRy9aRYwnz2Zu/uVWaBiVgnOUR"
-API_SECRET = "hDzEcXRb7JLbcXF5xOHD0HbWrSxFkLx0hr57RYtPoJh \
-                mqizsofOBN4y6dXZJB6zIwpkH2a1XyaYLTDcGA215tg=="
-
 
 class KrakBal:
     def __init__(self, key_file, currency):
