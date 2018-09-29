@@ -21,27 +21,22 @@ class KrakBal:
         self.print_output()
 
     def init_api(self, key_file):
-
         api = krakenex.API()
         api.load_key(key_file)
         return api
-        # key=API_KEY, secret=API_SECRET)
 
     def get_balances(self):
         self.printstatus("Kraken: loading balance...")
         try:
-            query = self.api.query_private('Balance', timeout=5)
+            query = self.api.query_private("Balance", timeout=5)
         except Exception as e:
             self.handle_error(e)
 
-        balances = query.get('result')
+        balances = query.get("result")
         for i in balances:
             if float(balances[i]) != 0:
-                pair = i + self.currency[-len(i):]
-                self.data[i] = {
-                    'balance': float(balances[i]),
-                    'pair': pair
-                }
+                pair = i + self.currency[-len(i) :]
+                self.data[i] = {"balance": float(balances[i]), "pair": pair}
 
                 if i != self.currency:
                     self.pairlist.append(pair)
@@ -50,22 +45,20 @@ class KrakBal:
         self.printstatus("Kraken: getting prices...")
         try:
             query = self.api.query_public(
-                'Ticker',
-                {'pair': ",".join(self.pairlist)},
-                timeout=5
+                "Ticker", {"pair": ",".join(self.pairlist)}, timeout=5
             )
         except Exception as e:
             self.handle_error(e)
 
-        prices = query.get('result')
+        prices = query.get("result")
 
         for asset in self.data:
             item = self.data[asset]
             if asset == self.currency:
-                item['rate'] = 1
+                item["rate"] = 1
             else:
                 try:
-                    item['rate'] = float(prices.get(item['pair']).get('a')[0])
+                    item["rate"] = float(prices.get(item["pair"]).get("a")[0])
                 except Exception as e:
                     self.handle_error(e)
 
@@ -73,21 +66,23 @@ class KrakBal:
         self.total = 0
         for asset in self.data:
             item = self.data[asset]
-            in_home_currency = item['balance'] * item['rate']
-            item['total'] = in_home_currency
+            in_home_currency = item["balance"] * item["rate"]
+            item["total"] = in_home_currency
             self.total += in_home_currency
 
     def print_output(self):
         self.printstatus("\n============== KRAKEN BALANCE ==============\n\n")
         for asset in self.data:
             item = self.data[asset]
-            print("{0:.2f} {1} \t= {2:.2f} {3} \t(@ {4})\033[K".format(
-                item['balance'],
-                asset,
-                item['total'],
-                self.currency[-3:],
-                item['rate']
-            ))
+            print(
+                "{0:.2f} {1} \t= {2:.2f} {3} \t(@ {4})\033[K".format(
+                    item["balance"],
+                    asset,
+                    item["total"],
+                    self.currency[-3:],
+                    item["rate"],
+                )
+            )
 
         print("\t\t+ =============")
         print("\t\t  {0:.2f} {1}\n".format(self.total, self.currency[-3:]))
@@ -113,29 +108,26 @@ class KrakBal:
 
 parser = argparse.ArgumentParser(description="Prints Kraken account balance.")
 parser.add_argument(
-    '-c',
-    metavar='currency',
+    "-c",
+    metavar="currency",
     nargs=1,
     type=str,
-    default=['EUR'],
-    dest='currency',
-    help="Optional currency symbol (default: EUR)"
+    default=["EUR"],
+    dest="currency",
+    help="Optional currency symbol (default: EUR)",
 )
 
 parser.add_argument(
-    '-k',
-    metavar='key file',
+    "-k",
+    metavar="key file",
     nargs=1,
     type=str,
-    default=['kraken.key'],
-    dest='key_file',
-    help="Optional Key file (default: kraken.key)"
+    default=["kraken.key"],
+    dest="key_file",
+    help="Optional Key file (default: kraken.key)",
 )
 
 args = parser.parse_args()
-krakbal = KrakBal(
-    args.key_file[0],
-    args.currency[0]
-)
+krakbal = KrakBal(args.key_file[0], args.currency[0])
 
 krakbal.run()

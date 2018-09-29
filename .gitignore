@@ -3,3 +3,5 @@ include/*
 lib/*
 pip-selfcheck.json
 kraken.key
+.vscode/settings.json
+.pytest_cache/

@@ -24,3 +24,6 @@ Example:
 
 ## Limitations
 * Kraken currently only has complete conversion data for its crypto assets into USD and EUR. For all but the biggest assets, CAD and GBP conversion is not available.
+
+## Known Issues
+* If the account holds a balance in EUR and the display currency is USD (and vice-versa), the call will fail as it tries to obtain the rate for XUSDZEUR which is not a valid pair on Kraken. Fix: determine if there's a necessity to convert between two fiat currencies and, if so, request additional rates for BTC to balance currency and BTC to display currency. Determine the exchange rate between the two fiat currencies with BTC as a proxy by dividing the one balance by the other.
