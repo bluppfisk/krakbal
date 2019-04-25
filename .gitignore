@@ -1,7 +1,9 @@
 bin/*
 include/*
 lib/*
+lib64
 pip-selfcheck.json
 kraken.key
 .vscode/settings.json
 .pytest_cache/
+share
