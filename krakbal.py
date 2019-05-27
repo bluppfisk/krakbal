@@ -35,7 +35,11 @@ class KrakBal:
         balances = query.get("result")
         for i in balances:
             if float(balances[i]) != 0:
-                pair = i + self.currency[-len(i) :]
+                chopoff = 3
+                if i[0:1].upper() == "X" and len(i) == 4:
+                    chopoff = 4
+                pair = i + self.currency[-chopoff:]
+                print(pair)
                 self.data[i] = {"balance": float(balances[i]), "pair": pair}
 
                 if i != self.currency:
