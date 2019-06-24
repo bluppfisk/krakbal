@@ -77,6 +77,8 @@ class KrakBal:
         self.printstatus("\n============== KRAKEN BALANCE ==============\n\n")
         for asset in self.data:
             item = self.data[asset]
+            if item["total"] < 0.01:
+                continue
             print(
                 "{0:.2f} {1} \t= {2:.2f} {3} \t(@ {4})\033[K".format(
                     item["balance"],
