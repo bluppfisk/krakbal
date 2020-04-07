@@ -6,6 +6,8 @@ Make sure you have Python3 and pip installed
 Run in terminal:
 ```
 git clone https://github.com/bluppfisk/krakbal && cd krakbal
+python3 -m venv ./
+source bin/activate
 pip install -r requirements.txt
 ```
 
