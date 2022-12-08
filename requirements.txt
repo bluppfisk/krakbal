@@ -1,4 +1,4 @@
-arrow==0.12.1
+arrow==0.15.1
 certifi==2022.12.7
 chardet==3.0.4
 colorlog==3.1.4
