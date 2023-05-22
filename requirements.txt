@@ -5,7 +5,7 @@ colorlog==3.1.4
 idna==2.7
 krakenex==2.1.0
 python-dateutil==2.7.3
-requests==2.20.0
+requests==2.31.0
 six==1.11.0
 tabulate==0.8.2
 urllib3==1.26.5
